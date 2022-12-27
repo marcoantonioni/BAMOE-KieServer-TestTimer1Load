@@ -39,6 +39,7 @@ PGPASSWORD=${KIE_PWD} psql -U ${KIE_USER} -h 127.0.0.1 -d ${BAMOE_DB_NAME} -c "s
 
 ## Load test process TestTimer1Human
 
+```
 #-------------------------
 # set env vars
 USER_PASSWORD=admin:passw0rd
