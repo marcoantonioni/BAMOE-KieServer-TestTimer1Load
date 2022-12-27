@@ -1,4 +1,4 @@
 #!/bin/bash
 
-MAX_SHELL=30
+MAX_SHELL=10
 for (( c=1; c<=$MAX_SHELL; c++ )) do gnome-terminal --tab -- ./startProcessTimer.sh; done
