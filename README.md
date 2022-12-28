@@ -57,7 +57,7 @@ PROC_INSTANCE_ID=$(curl -s -k -u ${USER_PASSWORD} -H 'content-type: application/
 echo "PID: "${PROC_INSTANCE_ID}
 
 #-------------------------
-# query timers for a specific process instance
+# query timers for a specific process instance or wakeup stale timers
 curl -s -k -u ${USER_PASSWORD} -H 'accept: application/json' -X GET http://localhost:8080/kie-server/services/rest/server/admin/containers/${CTR_ID}/processes/instances/${PROC_INSTANCE_ID}/timers
 
 
