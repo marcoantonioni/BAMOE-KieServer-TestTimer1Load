@@ -57,7 +57,6 @@
       <property name="org.kie.server.persistence.ds" value="java:jboss/datasources/PostgresDS"/>
       <property name="org.kie.server.persistence.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
 		<property name="org.jbpm.ejb.timer.tx" value="true"/>
-      <property name="org.jbpm.ejb.timer.local.cache" value="false"/>
       <!-- Update end -->
   
    </system-properties>
@@ -165,63 +164,12 @@
       <subsystem xmlns="urn:jboss:domain:bean-validation:1.0"/>
       <subsystem xmlns="urn:jboss:domain:core-management:1.0"/>
       <subsystem xmlns="urn:jboss:domain:datasources:6.0">
-
          <datasources>
-            <xa-datasource jndi-name="java:/jboss/datasources/EJBTimerDS" pool-name="poolPostgresqlEJB_TIMER" enabled="true" use-java-context="true">
-               <xa-datasource-property name="DatabaseName">kieserver01</xa-datasource-property>
-               <xa-datasource-property name="PortNumber">5432</xa-datasource-property>
-               <xa-datasource-property name="ServerName">remote.postgres.net</xa-datasource-property>               
-               <driver>postgresql</driver>
-               <transaction-isolation>TRANSACTION_READ_COMMITTED</transaction-isolation>
-               <xa-pool>
-                  <min-pool-size>30</min-pool-size>
-                  <max-pool-size>50</max-pool-size>
-               </xa-pool>
-               <security>
-                  <user-name>kieserver</user-name>
-                  <password>kie01server</password>
-               </security>
-               <validation>
-                  <validate-on-match>true</validate-on-match>
-                  <background-validation>false</background-validation>
-                  <valid-connection-checker class-name="org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLValidConnectionChecker"/>
-                  <exception-sorter class-name="org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLExceptionSorter"/>
-               </validation>
-            </xa-datasource>
 
-            <xa-datasource jndi-name="java:/jboss/datasources/PostgresDS" pool-name="poolPostgresDS" enabled="true" use-java-context="true">
-               <xa-datasource-property name="DatabaseName">kieserver01</xa-datasource-property>
-               <xa-datasource-property name="PortNumber">5432</xa-datasource-property>
-               <xa-datasource-property name="ServerName">remote.postgres.net</xa-datasource-property>               
-               <driver>postgresql</driver>
-               <xa-pool>
-                  <min-pool-size>30</min-pool-size>
-                  <max-pool-size>50</max-pool-size>
-               </xa-pool>
-               <security>
-                  <user-name>kieserver</user-name>
-                  <password>kie01server</password>
-               </security>
-               <validation>
-                  <validate-on-match>true</validate-on-match>
-                  <background-validation>false</background-validation>
-                  <valid-connection-checker class-name="org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLValidConnectionChecker"/>
-                  <exception-sorter class-name="org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLExceptionSorter"/>
-               </validation>
-            </xa-datasource>
-
-            <drivers>
-               <driver name="postgresql" module="com.postgresql">
-                  <xa-datasource-class>org.postgresql.xa.PGXADataSource</xa-datasource-class>
-               </driver>
-            </drivers>
-
-
-            <!--
+            <!-- Update begin -->
             <datasource jndi-name="java:jboss/datasources/PostgresDS" pool-name="PostgresDS">
-               <connection-url>jdbc:postgresql://remote.postgres.net:5432/kieserver01</connection-url>
+               <connection-url>jdbc:postgresql://localhost:5432/kieserver01</connection-url>
                <driver>postgresql</driver>
-               <transaction-isolation>TRANSACTION_READ_COMMITTED</transaction-isolation>
                <security>
                   <user-name>kieserver</user-name>
                   <password>kie01server</password>
@@ -238,32 +186,12 @@
                </pool>
 
             </datasource>
-            -->
-
-            <!-- Update begin CON XA-DS molte eccezioni ... ma ok terminazione processi -->
-            <!-- xa-datasource jndi-name="java:jboss/datasources/PostgresDS" pool-name="PostgresDS" use-java-context="true" enabled="true">
-               <xa-datasource-property name="DatabaseName">kieserver01</xa-datasource-property>
-               <xa-datasource-property name="PortNumber">5432</xa-datasource-property>
-               <xa-datasource-property name="ServerName">remote.postgres.net</xa-datasource-property>               
-               <driver>postgresql</driver>
-               <transaction-isolation>TRANSACTION_READ_COMMITTED</transaction-isolation>
-               <security>
-                  <user-name>kieserver</user-name>
-                  <password>kie01server</password>
-               </security>
-               <validation>
-                  <valid-connection-checker class-name="org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLValidConnectionChecker"/>
-                  <validate-on-match>true</validate-on-match>
-                  <background-validation>false</background-validation>
-                  <exception-sorter class-name="org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLExceptionSorter"/>
-               </validation>
-            </xa-datasource -->
             
-            <!-- drivers>
+            <drivers>
                <driver name="postgresql" module="com.postgresql">
                   <xa-datasource-class>org.postgresql.xa.PGXADataSource</xa-datasource-class>
                </driver>
-            </drivers -->
+            </drivers>
             <!-- Update end -->
 
          </datasources>
@@ -295,9 +223,6 @@
                <managed-scheduled-executor-service name="default" jndi-name="java:jboss/ee/concurrency/scheduler/default" context-service="default" hung-task-termination-period="0" hung-task-threshold="60000" keepalive-time="3000"/>
             </managed-scheduled-executor-services>
          </concurrent>
-         <!--
-         <default-bindings context-service="java:jboss/ee/concurrency/context/default" datasource="java:jboss/datasources/ExampleDS" jms-connection-factory="java:jboss/DefaultJMSConnectionFactory" managed-executor-service="java:jboss/ee/concurrency/executor/default" managed-scheduled-executor-service="java:jboss/ee/concurrency/scheduler/default" managed-thread-factory="java:jboss/ee/concurrency/factory/default"/>
-         -->
          <default-bindings context-service="java:jboss/ee/concurrency/context/default" datasource="java:jboss/datasources/PostgresDS" jms-connection-factory="java:jboss/DefaultJMSConnectionFactory" managed-executor-service="java:jboss/ee/concurrency/executor/default" managed-scheduled-executor-service="java:jboss/ee/concurrency/scheduler/default" managed-thread-factory="java:jboss/ee/concurrency/factory/default"/>
       </subsystem>
       <subsystem xmlns="urn:jboss:domain:ee-security:1.0"/>
@@ -328,12 +253,6 @@
          </passivation-stores>
          <async thread-pool-name="default"/>
 
-         <timer-service thread-pool-name="default" default-data-store="poolPostgresqlEJB_TIMER_ds">
-            <data-stores>
-               <database-data-store name="poolPostgresqlEJB_TIMER_ds" datasource-jndi-name="java:/jboss/datasources/EJBTimerDS" database="postgresql" partition="ejb_timer_part" refresh-interval="30000"/>
-            </data-stores>
-         </timer-service>
-
          <!-- ORIGINALE
          <timer-service thread-pool-name="default" default-data-store="default-file-store">
             <data-stores>
@@ -342,13 +261,13 @@
          </timer-service>
          -->
 
-     		<!-- Update begin
+     		<!-- Update begin -->
          <timer-service thread-pool-name="default" default-data-store="db-store">
             <data-stores>
-               <database-data-store name="db-store" datasource-jndi-name="jboss/datasources/PostgresDS" partition="ejb_timer_part" refresh-interval="5000"/>
+               <database-data-store name="db-store" datasource-jndi-name="jboss/datasources/PostgresDS"/>
             </data-stores>
          </timer-service>
-     		Update end -->
+     		<!-- Update end -->
 
          <remote cluster="ejb" connectors="http-remoting-connector" thread-pool-name="default">
             <channel-creation-options>
