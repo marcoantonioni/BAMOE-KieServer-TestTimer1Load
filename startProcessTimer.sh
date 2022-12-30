@@ -7,11 +7,11 @@ SERVER_URL=http://localhost:8080/kie-server
 
 CTR_ID=TestTimer1_1.0.0-SNAPSHOT
 PROCESS_TEMPL_ID="TestTimer1.TestTimer1"
-MAX_P=1000
+MAX_P=100
 
 for (( c=1; c<=$MAX_P; c++ )) 
 do 
-    sleep 0.1 
+    sleep 0.5
     MIN_SECS=10
     RANGE_SECS=50
     DELAY=$(( $RANDOM % $RANGE_SECS + $MIN_SECS ))
