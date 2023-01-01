@@ -2,16 +2,16 @@
 
 USER_PASSWORD=admin:passw0rd
 
-#SERVER_URL=http://localhost:8080/kie-server
-SERVER_URL=http://my-app-timers-kieserver-bamoe-kieservers-timers.itzroks-120000c7nk-xhrilg-6ccd7f378ae819553d37d5f2ee142bd6-0000.eu-de.containers.appdomain.cloud
+SERVER_URL=http://localhost:8080/kie-server
+#SERVER_URL=http://my-app-timers-kieserver-bamoe-kieservers-timers.itzroks-120000c7nk-xhrilg-6ccd7f378ae819553d37d5f2ee142bd6-0000.eu-de.containers.appdomain.cloud
 
 CTR_ID=TestTimer1_1.0.0-SNAPSHOT
 PROCESS_TEMPL_ID="TestTimer1.TestTimer1Human"
-MAX_P=100
+MAX_P=1000
 
 for (( c=1; c<=$MAX_P; c++ )) 
 do 
-    sleep 0.5
+    sleep 0.1
     MIN_SECS=1
     RANGE_SECS=50
     DELAY=$(( $RANDOM % $RANGE_SECS + $MIN_SECS ))
